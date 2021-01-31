@@ -1,7 +1,8 @@
 const fetch = require('node-fetch');
+var fs = require('fs');
 const crypto = require('crypto')
 var FormData = require('form-data');
-// const request = require('request')
+const request = require('request')
 
 const table = {
   a: 1,
@@ -40,9 +41,11 @@ function deCripto (cripto, pace) {
   return deCripted;
 }
 
-function prepareForm (argumentObject) {
-  let form = new FormData();
-  form.append(answer: argumentObject)
+function file (argument) {
+  fs.appendFile('answer.json'/*Aqui é o nome do arquivo*/, JSON.stringify(argument)/*Aqui é o conteudo do arquivo*/, function (err) {
+    if (err) throw err;
+    console.log('Arquivo Salvo!');
+  });
 }
 
 const cesarCripto = async () => {
@@ -58,7 +61,8 @@ const cesarCripto = async () => {
       resumo.update(answer.decifrado);
       answer.resumo_criptografico = resumo.digest('hex');
       console.log(answer);
-      return answer;
+      file(answer);
+      return answer;  
     })
 }
 
